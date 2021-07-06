@@ -1,5 +1,5 @@
 <template>
-  <div>home</div>
+  <div>not found</div>
 </template>
 <script>
 export default {};
