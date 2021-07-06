@@ -2,9 +2,13 @@
   <v-app>
     helllo
     <router-view></router-view>
+    <bottom-navigation></bottom-navigation>
   </v-app>
 </template>
 
 <script>
-export default {};
+import bottomNavigation from './components/bottomNav.vue'
+export default {
+  components:{bottomNavigation}
+};
 </script>

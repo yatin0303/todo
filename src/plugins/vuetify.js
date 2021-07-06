@@ -5,6 +5,9 @@ import * as components from "vuetify/lib/components";
 import * as directives from "vuetify/lib/directives";
 
 export default createVuetify({
+  icons: {
+    iconfont: 'md', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+  },
   components,
   directives,
 });
