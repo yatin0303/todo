@@ -28,14 +28,15 @@ const routes = [
     component: allTasks,
   },
   {
-    path: "/:notfound(.*)",component:notFound,
+    path: "/:notfound(.*)",
+    component: notFound,
   },
 ];
 console.log(process.env.BASE_URL);
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  components:{home,tasks,allTasks,login}
+  components: { home, tasks, allTasks, login },
 });
 
 export default router;

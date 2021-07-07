@@ -1,14 +1,27 @@
 <template>
-  <v-app>
-    helllo
-    <router-view></router-view>
-    <bottom-navigation></bottom-navigation>
+  <v-app :theme="theme">
+    <v-main>
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import bottomNavigation from './components/bottomNav.vue'
 export default {
-  components:{bottomNavigation}
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {
+    theme() {
+      return this.$store.getters.getTheme;
+    },
+  },
 };
 </script>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+</style>
