@@ -1,18 +1,18 @@
 <template>
-  <v-bottom-navigation :value="value" color="primary">
-    <v-btn @click="darkMode">
-      <!-- <span></span> -->
+  <v-bottom-navigation app grow  v-model="value" hide-on-scroll>
+    <v-btn height="100%" :value="value" @click="darkMode">
+      <!-- <span>Recent</span> -->
 
-      <v-icon>{{ mode }}</v-icon>
+      <v-icon>{{mode}}</v-icon>
     </v-btn>
 
-    <v-btn>
+    <v-btn height="100%" value="favorites">
       <!-- <span>Favorites</span> -->
 
       <v-icon>add_task</v-icon>
     </v-btn>
 
-    <v-btn fab>
+    <v-btn height="100%" value="nearby">
       <!-- <span>Nearby</span> -->
 
       <v-icon>logout</v-icon>
@@ -29,18 +29,9 @@ export default {
   },
   methods: {
     darkMode() {
-      if (this.theme === "light") {
-        this.$store.dispatch("setTheme", "dark");
-        this.mode = "light_mode";
-      } else {
-        this.$store.dispatch("setTheme", "light");
-        this.mode = "dark_mode";
-      }
-    },
-  },
-  computed: {
-    theme() {
-      return this.$store.getters.getTheme;
+      const theme=this.$vuetify.theme.dark;
+      this.$vuetify.theme.dark=!theme;
+      this.mode=theme?'dark_mode':'light_mode'
     },
   },
 };

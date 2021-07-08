@@ -1,5 +1,6 @@
 <template>
-  <v-app :theme="theme">
+  <v-app theme='dark'>
+    <top-navigation></top-navigation>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -7,21 +8,12 @@
 </template>
 
 <script>
+import topNavigation from './components/topNavigation.vue'
 export default {
-  components: {},
+  components: {topNavigation},
   data() {
     return {};
-  },
-  computed: {
-    theme() {
-      return this.$store.getters.getTheme;
-    },
+  
   },
 };
 </script>
-<style>
-* {
-  padding: 0;
-  margin: 0;
-}
-</style>

@@ -1,9 +1,11 @@
-import { createRouter, createWebHistory } from "vue-router";
-import home from "../views/home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import home from "../views/Home.vue";
 import tasks from "../views/tasks.vue";
 import login from "../views/login.vue";
 import allTasks from "../views/allTasks.vue";
 import notFound from "../views/notFound.vue";
+Vue.use(VueRouter)
 
 const routes = [
   { path: "/", redirect: "home" },
@@ -11,6 +13,9 @@ const routes = [
     path: "/home",
     name: "home",
     component: home,
+  },
+  {
+    path:"/home/:user", name:"/allTasks" , component:allTasks
   },
   {
     path: "/login",
@@ -23,20 +28,16 @@ const routes = [
     component: tasks,
   },
   {
-    path: "/allTasks",
-    name: "all",
-    component: allTasks,
-  },
-  {
-    path: "/:notfound(.*)",
+    path: "/:notfound(.*)*",
     component: notFound,
   },
 ];
-console.log(process.env.BASE_URL);
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-  components: { home, tasks, allTasks, login },
-});
 
-export default router;
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
+  components: { home, tasks, allTasks, login ,notFound },
+})
+
+export default router
