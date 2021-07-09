@@ -3,9 +3,9 @@
     <v-row justify="center">
       <v-col sm="4" md="5">
         <v-card width="300px" height="500px" class="mx-auto mt-10 pa-5">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid">
             <v-text-field
-              v-model="user.name"
+              v-model="name"
               :counter="25"
               :rules="nameRules"
               label="Name"
@@ -13,7 +13,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="user.email"
+              v-model="email"
               :rules="emailRules"
               label="E-mail"
               required
@@ -27,7 +27,8 @@
             <v-text-field
               :value="computedDateFormattedDatefns"
               clearable
-              label="Formatted with datefns"
+              :rules="DobRules"
+              label="Date Of Birth"
               readonly
               v-bind="attrs"
               v-on="on"
@@ -39,11 +40,21 @@
             @change="menu2 = false"
           ></v-date-picker>
         </v-menu>
+        <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required, rules.min]"
+            :type="show1 ? 'text' : 'password'"
+            name="input-10-1"
+            label="Password"
+            hint="At least 8 characters"
+            @click:append="show1 = !show1"
+          ></v-text-field>
             <v-btn
               :disabled="!valid"
               color="success"
               class="mr-4"
-              @click="validate"
+              @click="submit"
             >
              
               Submit
@@ -55,9 +66,17 @@
   </v-container>
 </template>
 <script>
+import { format, parseISO } from 'date-fns'
   export default {
     data: () => ({
       valid: true,
+      show1: false,
+      password: '',
+      rules: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+          emailMatch: () => (`The email and password you entered don't match`),
+        },
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length >= 2 && v.length <= 25) || 'Name must be more than 2 characters',
@@ -66,25 +85,54 @@
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      user:{
-        name:'',
-        email:'',
-        
-      }
+      DobRules:[
+        v => !!v || 'DOB is required',
+      ],
+
+      date: format(parseISO(new Date().toISOString()), 'yyyy-MM-dd'),
+    
+      menu2: false,
+      name:'',
+      email:'',
+
       
     }),
 
     methods: {
       validate () {
         this.$refs.form.validate()
-        console.log(this.user);
       },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
+      submit(){
+        this.validate();
+        console.log(this.valid);
+        let userData={};
+        if(this.valid===true){
+          userData={
+            name:this.name,
+            email:this.email,
+            age:this.ageCalc,
+            DOB:this.date,
+            password:this.password
+          }
+          console.log(userData);
+        }
+      }
     },
+    computed: {
+      computedDateFormattedDatefns () {
+        return this.date ? format(parseISO(this.date), 'MMMM do yyyy') : ''
+      },
+       ageCalc(){
+        const currentDate= new Date().getTime();
+        const dob=new Date(this.date).getTime();
+        const age=(currentDate-dob)/31536000000;
+        return Math.floor(age);
+      }
+    },
+    // watch:{
+    //   valid(){
+    //     console.log(this.valid);
+    //   }
+    // }
   }
 </script>
