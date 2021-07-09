@@ -5,13 +5,6 @@
 
       <v-icon>{{mode}}</v-icon>
     </v-btn>
-
-    <v-btn height="100%" value="favorites">
-      <!-- <span>Favorites</span> -->
-
-      <v-icon>add_task</v-icon>
-    </v-btn>
-
     <v-btn height="100%" value="nearby">
       <!-- <span>Nearby</span> -->
 

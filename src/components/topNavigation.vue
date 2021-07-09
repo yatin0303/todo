@@ -1,7 +1,7 @@
 <template>
     <v-app-bar app flat color="transparent"  hide-on-scroll>
         <v-layout justify-start>
-        <v-app-bar-nav-icon>ToDO</v-app-bar-nav-icon>
+        <v-app-bar-nav-icon router to="/home">ToDO</v-app-bar-nav-icon>
         <v-spacer></v-spacer>
         </v-layout>
         <v-btn   depressed color="transparent" router to="/home" class="btn">
