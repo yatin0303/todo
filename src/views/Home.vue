@@ -26,7 +26,7 @@
 
     <bottom-navigation></bottom-navigation>
     <v-layout justify-center>
-      <v-btn class="mx-auto" fab dark color="indigo" bottom fixed large router to="/tasks">
+      <v-btn class="mx-auto" fab dark color="indigo" bottom fixed large router to="/home/tasks">
         <v-icon dark>
           mdi-plus
         </v-icon>
@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     switchRoute(name) {
-      console.log(this.$route);
+      // console.log(this.$route);
       this.$router.push(`/home/${name}`);
     },
   },
+  
 };
 </script>

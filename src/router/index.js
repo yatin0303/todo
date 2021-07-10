@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import home from "../views/Home.vue";
 import tasks from "../views/tasks.vue";
 import login from "../views/login.vue";
-import allTasks from "../views/allTasks.vue";
+import addTask from "../views/addTask.vue";
 import notFound from "../views/notFound.vue";
 Vue.use(VueRouter)
 
@@ -15,17 +15,18 @@ const routes = [
     component: home,
   },
   {
-    path:"/home/:user", name:"/allTasks" , component:allTasks
+    path:"/home/:user", name:"tasks" 
+    , component:tasks,children:[{path:'addTask',name:'addtask',component:addTask}]
   },
   {
     path: "/login",
     name: "login",
-    component: login,
+    component: login
   },
   {
     path: "/tasks",
     name: "tasks",
-    component: tasks,
+    component: addTask,
   },
   {
     path: "/:notfound(.*)*",
@@ -37,7 +38,7 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-  components: { home, tasks, allTasks, login ,notFound },
+  components: { home, tasks, addTask, login ,notFound },
 })
 
 export default router
