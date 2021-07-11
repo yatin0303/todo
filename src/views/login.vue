@@ -114,6 +114,7 @@ import { format, parseISO } from 'date-fns'
             DOB:this.date,
             password:this.password
           }
+          this.$store.dispatch('signup',userData)
           console.log(userData);
         }
       }

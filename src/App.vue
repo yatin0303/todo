@@ -15,5 +15,8 @@ export default {
     return {};
   
   },
+  created(){
+    this.$store.dispatch('signin')
+  }
 };
 </script>

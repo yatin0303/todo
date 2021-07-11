@@ -50,14 +50,20 @@ export default {
       ]
     }
   },
+ 
   created(){
-    console.log(this.currentRoute);
+  //  this.$store.dispatch('tasks/getTask',this.currentUser)
+  //   this.tasks=this.$store.getters['tasks/getTasks'];
+  this.getdata();
   },
   methods:{
-    addtask(task){
-      this.tasks.push({
-        task:task,completed:false,favourite:false
-      })
+    addtask(addedTask){
+      this.$store.dispatch('tasks/addTask',{user:this.currentUser,task:addedTask,completed:false,favourite:false})
+    },
+    async getdata(){
+     await this.$store.dispatch('tasks/getTask',this.currentUser)
+     this.tasks=this.$store.getters['tasks/getTasks'];
+     console.log(this.tasks);
     }
   }
   ,
@@ -65,7 +71,9 @@ export default {
     currentRoute(){
       
       return `${this.$route.path}/addTask`;
-    }
+    },
+    currentUser(){
+    return this.$route.params.user}
   }
 };
 </script>
