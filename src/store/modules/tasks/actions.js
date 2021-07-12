@@ -1,3 +1,4 @@
+
 export default {
   async addTask(context, payload) {
     const task = {
@@ -5,23 +6,30 @@ export default {
       completed: payload.completed,
       favourite: payload.favourite,
     };
-    console.log(payload.task);
+    const token=context.rootGetters.getToken;
+    const url=process.VUE_APP_URL
     const response = await fetch(
-      `https://todo-db5eb-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${payload.user}.json`,
+      `${url}/tasks/${payload.user}.json?auth=${token}`,
       {
         method: "POST",
         body: JSON.stringify(task),
       }
     );
-    context.commit('addSingleTask',task)
-    console.log(response);
+    const responseData=await response.json();
+  
+
+    context.commit('addSingleTask',{id:responseData.name,...task})
+    
   },
   async getTask(context,payload){
-      const response=await fetch( `https://todo-db5eb-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${payload}.json`)
+    const token=context.rootGetters.getToken;
+    const url=process.VUE_APP_URL
+      const response=await fetch( `${url}/tasks/${payload}.json?auth=${token}`)
         const responseData=await response.json();
         let taskArray=[];
         for(let t in responseData){
             let todo={
+                id:t,
                 task:responseData[t].task,
                 completed:responseData[t].completed,
                 favourite:responseData[t].favourite
@@ -32,6 +40,19 @@ export default {
         
         context.commit('addNewTask',taskArray);
 
+    },
+    async Update(context,payload){
+      const url=process.VUE_APP_URL
+      const token=context.rootGetters.getToken;
+      await fetch( `${url}/tasks/${payload.user}/${payload.id}.json?auth=${token}`,{
+        method:"PATCH",
+        body:JSON.stringify({completed:payload.value})
+      })
+    
+      
+      
+          
+      
     }
 };
 

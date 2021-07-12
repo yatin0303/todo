@@ -1,11 +1,11 @@
 <template>
-  <v-bottom-navigation app grow  v-model="value" hide-on-scroll>
-    <v-btn height="100%" :value="value" @click="darkMode">
+  <v-bottom-navigation app grow  v-model="value" hide-on-scroll transition="scroll-x-transition">
+    <v-btn height="100%" :value="value" @click="darkMode" >
       <!-- <span>Recent</span> -->
 
       <v-icon>{{mode}}</v-icon>
     </v-btn>
-    <v-btn height="100%" value="nearby">
+    <v-btn height="100%" value="nearby" @click="logout">
       <!-- <span>Nearby</span> -->
 
       <v-icon>logout</v-icon>
@@ -26,6 +26,9 @@ export default {
       this.$vuetify.theme.dark=!theme;
       this.mode=theme?'dark_mode':'light_mode'
     },
+    logout(){
+      this.$store.dispatch('logout')
+    }
   },
 };
 </script>

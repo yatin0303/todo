@@ -1,20 +1,29 @@
 export default {
     async addUser(context, payload) {
         
-    //   console.log(payload)
-      const response = await fetch(
-        `https://todo-db5eb-default-rtdb.asia-southeast1.firebasedatabase.app/users/${payload.id}.json`,
+      const url=process.VUE_APP_URL
+       await fetch(
+        `${url}/users/${payload.id}.json`,
         {
           method: "PUT",
           body: JSON.stringify(payload),
         }
       );
-      console.log(response);
+      
     },
-    async getUser(context,payload){
-        const response=await fetch( `https://todo-db5eb-default-rtdb.asia-southeast1.firebasedatabase.app/users/${payload.id}.json`)
+    async getUser(context){
+     
+      const url=process.VUE_APP_URL
+        const response=await fetch( `${url}/users.json`)
           const responseData=await response.json();
-          console.log(responseData);
+          const UserArray=[]
+          for(let key in responseData){
+            UserArray.push(responseData[key])
+          }
+          const user=context.getters.getUsers
+          if(user.length===0){
+          context.commit('addUsers',UserArray)
+          }
       }
   };
   

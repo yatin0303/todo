@@ -4,6 +4,9 @@ export default{
         state.tasks=payload
     },
     addSingleTask(state,payload){
-        state.tasks.push(payload);
+      
+        state.tasks.push(payload)
+        
+       
     }
 }

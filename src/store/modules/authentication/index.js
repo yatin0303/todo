@@ -6,7 +6,9 @@ import mutations from './mutations.js'
 export default{
     state(){
         return{
-            
+            idToken:null,
+            userid:null,
+            snackbar:false
         }
     },
     mutations,
